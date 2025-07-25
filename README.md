@@ -121,6 +121,6 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`box_side(n)_plateslot_height`   |If Plate Selected, Height of Plate Insert.|
 |`box_side(n)_plateslot_depth`    |If Plate Selected, Depth of Plate Insert into Side.|
 
-##Change Log
+## Change Log
 ### DeckBoxGenerator v1.0 == July, 2025
 - Original Release
