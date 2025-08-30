@@ -2,7 +2,7 @@
 
 A fully customizable **TCG Deck Box Generator** for OpenSCAD.
 
-Version == **1.0**
+Version == **1.1**
 
 ![Default Deck Box](images/default_box.png)
 
@@ -20,11 +20,9 @@ Have you been looking through the various 3D Printed Deck boxes and just not fou
 DeckBoxGenerator and the Included BOSL2 Library are licensed under the BSD 2-Clause License
 
 ## Planned Minor Version Improvements
-- Build in Slop Tolerance Variable
 - Build in box_lid_cut variable between 10% and 75% to adjust how much the lid cuts into the sides (Default: 25%)
 - Able to Imprint Text onto sides and lid
 - Able to add Glass Pain Slot for Commannder Slot
-- Optimize, Function/Modularize, and change Move Geometry to Translate Geometry (Highest Priority)
 - Gridfinity base?
 - Separate more Box Lid stuff in variables
 
@@ -33,6 +31,7 @@ DeckBoxGenerator and the Included BOSL2 Library are licensed under the BSD 2-Cla
 - Trinket/Die box Add On (Requires Stackable Box/Lid)
 - Commander Slot in Lid Version (Requires Optimization)
 - Command Slot able to be moved to the other Sides (Requires Optimization)
+- Possible slot and clip for Lid in order to not need magnets?
 - Add ability to imprint images/logos
 
 ## How to Use
@@ -50,7 +49,7 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 - Side 2 is X-Axis side furthest from Origin.
 - Side 3 is Y-Axis side furthest from Origin.
 - Side 4 is X-Axis side closest to Origin.
-- If commander Display is needed for slot, Apply Plate to side 4 and use corresponding depth.
+- If Commander Display is needed for slot, Apply Plate to side 4 and use corresponding depth.
 
 ## Variable Descriptions
 
@@ -67,24 +66,30 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`idb_length_y`   |Inner Deck Box length in the Y-Axis Direction. Required.|
 |`idb_length_z`   |Inner Deck Box length in the Z-Axis Direction. Required.|
 
+### Shared Box and Lid Config
+|Variable Name              |Description|
+|---                        |---        |
+|`box_lid_thick`            |Thickness of the Box's Lid. Required.|
+|`box_lid_secure`           |Securing Method of the lid on X-Axis.|
+|`box_lid_noback`           |If true, removes back wall for lid slot. Adjust's Lid as well.|
+|`box_lid_magnet_amount`    |How many Magnet slots are in the Lid and Back Wall.|
+|`box_lid_magnet_depth`     |Depth into the wall/Lid for the Magnets.|
+|`box_lid_magnet_diameter`  |Diameter of the Magnet Slots.|
+|`box_lid_lip`              |How much Box lid cuts into back wall. (NOT IMPLEMENTED)|
+|`slop_tolerance`           |Defines how much Additional Tolerance for parts. Recesses add this amount, Additional parts subtract this amount.|
+
 ### Deck Box Config
 |Variable Name              |Description|
 |---                        |---        |
-|`box_wall_thick`      |Thickness of the Walls of the Box. Required.|
-|`box_commander_slot`  |Adds a commander slot. Wall between IDB and this is Half wall Thickness.|
-|`box_cardgrab`        |Adds a Card Grab to Sides 1 and 3.|
-|`box_cardgrab_width`  |Width of the Card Grab Slot.|
-|`box_cardgrab_height` |Depth of the Card Grab Slot.|
+|`box_wall_thick`           |Thickness of the Walls of the Box. Required.|
+|`box_commander_slot`       |Adds a commander slot. Wall between IDB and this is Half wall Thickness.|
+|`box_cardgrab`             |Adds a Card Grab to Sides 1 and 3.|
+|`box_cardgrab_width`       |Width of the Card Grab Slot.|
+|`box_cardgrab_height`      |Depth of the Card Grab Slot.|
 
 ### Box Lid Config
-|Variable Name    |Description|
-|---              |---        |
-|`box_lid_thick`              |Thickness of the Box's Lid. Required.|
-|`box_lid_secure`             |Securing Method of the lid on X-Axis.|
-|`box_lid_noback`             |If true, removes back wall for lid slot. Adjust's Lid as well.|
-|`box_lid_magnet_amount`      |How many Magnet slots are in the Lid and Back Wall.|
-|`box_lid_magnet_depth`       |Depth into the wall/Lid for the Magnets.|
-|`box_lid_magnet_diameter`    |Diameter of the Magnet Slots.|
+|Variable Name                |Description|
+|---                          |---        |
 |`box_lid_divot_depth`        |Depth of the Lid Grab Divot. Set to 0 to Remove.|
 |`box_lid_slot`               |Selection for Lid Feature.|
 |`box_lid_coinslots_amount`   |If Coins selected, how many showing.|
@@ -96,22 +101,22 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`box_lid_plateslot_depth`    |If Plate Selected, Depth of Plate Insert into Lid, Z-Axis.|
 
 ### Commander Slot Config
-|Variable Name    |Description|
-|---              |---        |
+|Variable Name        |Description|
+|---                  |---        |
 |`cmd_length_x`       |Commander length in the X-Axis Direction.|
 |`cmd_length_y`       |Commander length in the Y-Axis Direction.|
 |`cmd_length_z`       |Commander length in the Z-Axis Direction.|
 
 ### Rounding/Clipping
-|Variable Name    |Description|
-|---              |---        |
+|Variable Name         |Description|
+|---                   |---        |
 |`edge_rounding`       |Rounds the Edges of the Deck box and Lid. Takes Priority.|
 |`edge_clipping`       |Clips/Chamfer's the Deck box and Lid.|
 |`trim_corners`        |If Selected, will trim corners as well.|
 
 ### Deck Box Sides Config
-|Variable Name    |Description|
-|---              |---        |
+|Variable Name                    |Description|
+|---                              |---        |
 |`box_side(n)_slot`               |Selection for Side (n) Feature.|
 |`box_side(n)_coinslots_amount`   |If Coins selected, how many showing.|
 |`box_side(n)_coinslots_depth`    |If Coins Selected, depth into Side.|
@@ -121,6 +126,10 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`box_side(n)_plateslot_height`   |If Plate Selected, Height of Plate Insert.|
 |`box_side(n)_plateslot_depth`    |If Plate Selected, Depth of Plate Insert into Side.|
 
-## Change Log
+##Change Log
+### DeckBoxGenerator v1.1 == August, 2025
+- Optimized script from 2500 lines to roughly 600
+- Added Built in Slop Tolerance variable
+- Added variable for back lid Lip, but not implemented yet.
 ### DeckBoxGenerator v1.0 == July, 2025
 - Original Release
