@@ -2,7 +2,7 @@
 
 A fully customizable **TCG Deck Box Generator** for OpenSCAD.
 
-Version == **1.1**
+Version == **1.2**
 
 ![Default Deck Box](images/default_box.png)
 
@@ -27,10 +27,9 @@ DeckBoxGenerator and the Included BOSL2 Library are licensed under the BSD 2-Cla
 - Separate more Box Lid stuff in variables
 
 ## Planned Major Version Improvements
-- Stackable Box/Lid Concept (Requires slop tolerance)
+- Stackable Box/Lid Concept
 - Trinket/Die box Add On (Requires Stackable Box/Lid)
-- Commander Slot in Lid Version (Requires Optimization)
-- Command Slot able to be moved to the other Sides (Requires Optimization)
+- Commander Slot in Lid Version
 - Possible slot and clip for Lid in order to not need magnets?
 - Add ability to imprint images/logos
 
@@ -79,13 +78,20 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`slop_tolerance`           |Defines how much Additional Tolerance for parts. Recesses add this amount, Additional parts subtract this amount.|
 
 ### Deck Box Config
-|Variable Name              |Description|
-|---                        |---        |
-|`box_wall_thick`           |Thickness of the Walls of the Box. Required.|
-|`box_commander_slot`       |Adds a commander slot. Wall between IDB and this is Half wall Thickness.|
-|`box_cardgrab`             |Adds a Card Grab to Sides 1 and 3.|
-|`box_cardgrab_width`       |Width of the Card Grab Slot.|
-|`box_cardgrab_height`      |Depth of the Card Grab Slot.|
+|Variable Name                |Description|
+|---                          |---        |
+|`box_wall_thick`             |Thickness of the Walls of the Box. Required.|
+|`box_frnt_commander_slot`    |Adds a front commander slot.|
+|`box_frnt_commander_slot_iw` |Thickness of the inner wall of the Front Commander Slot (If unsure, use Half of box_wall_thick).|
+|`box_back_commander_slot`    |Adds a back commander slot.|
+|`box_back_commander_slot_iw` |Thickness of the inner wall of the Back Commander Slot (If unsure, use Half of box_wall_thick).|
+|`box_cardsep`                |Adds a card Seperator.|
+|`box_cardsep_thick`          |Card Separator Wall Width|
+|`box_cardsep_width`          |Card Separator depth from Side 1|
+|`box_cardsepheight`          |Card Separator Height within inner Deck box (PERCENTILE)|
+|`box_cardgrab`               |Adds a Card Grab to Sides 1 and 3.|
+|`box_cardgrab_width`         |Width of the Card Grab Slot.|
+|`box_cardgrab_height`        |Depth of the Card Grab Slot.|
 
 ### Box Lid Config
 |Variable Name                |Description|
@@ -96,16 +102,24 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`box_lid_coinslots_depth`    |If Coins Selected, depth into lid.|
 |`box_lid_coinslots_diameter` |If Coins Selected, Diameter of coins.|
 |`box_lid_coinslots_rotate`   |If Coins Selected, Rotation in Degrees of where to render.|
+|`box_lid_coinslots_removal`  |If Coins Selected, render a 2mm removal hole|
 |`box_lid_plateslot_width`    |If Plate Selected, Width of Plate Insert, X-Axis.|
 |`box_lid_plateslot_height`   |If Plate Selected, Height of Plate Insert, Y-Axis.|
 |`box_lid_plateslot_depth`    |If Plate Selected, Depth of Plate Insert into Lid, Z-Axis.|
 
-### Commander Slot Config
-|Variable Name        |Description|
-|---                  |---        |
-|`cmd_length_x`       |Commander length in the X-Axis Direction.|
-|`cmd_length_y`       |Commander length in the Y-Axis Direction.|
-|`cmd_length_z`       |Commander length in the Z-Axis Direction.|
+### Front Commander Slot Config
+|Variable Name             |Description|
+|---                       |---        |
+|`frnt_cmd_length_x`       |Commander length in the X-Axis Direction.|
+|`frnt_cmd_length_y`       |Commander length in the Y-Axis Direction.|
+|`frnt_cmd_length_z`       |Commander length in the Z-Axis Direction.|
+
+### Back Commander Slot Config
+|Variable Name             |Description|
+|---                       |---        |
+|`back_cmd_length_x`       |Commander length in the X-Axis Direction.|
+|`back_cmd_length_y`       |Commander length in the Y-Axis Direction.|
+|`back_cmd_length_z`       |Commander length in the Z-Axis Direction.|
 
 ### Rounding/Clipping
 |Variable Name         |Description|
@@ -122,11 +136,17 @@ This script will generate a TCG Deck Box based off of the dimensions provided wi
 |`box_side(n)_coinslots_depth`    |If Coins Selected, depth into Side.|
 |`box_side(n)_coinslots_diameter` |If Coins Selected, Diameter of coins.|
 |`box_side(n)_coinslots_rotate`   |If Coins Selected, Rotation in Degrees of where to render.|
+|`box_side(n)_coinslots_removal`  |If Coins Selected, render a 2mm removal hole|
 |`box_side(n)_plateslot_width`    |If Plate Selected, Width of Plate Insert.|
 |`box_side(n)_plateslot_height`   |If Plate Selected, Height of Plate Insert.|
 |`box_side(n)_plateslot_depth`    |If Plate Selected, Depth of Plate Insert into Side.|
 
 ##Change Log
+### DeckBoxGenerator v1.2 == June, 2026
+- Modified Lid rendering for easy modification later and to be more accurate
+- Added ability to add second commander slot in Side 2
+- Added ability to remove Coints with small divot
+- Added Card Separator for Sideboard/tokens
 ### DeckBoxGenerator v1.1 == August, 2025
 - Optimized script from 2500 lines to roughly 600
 - Added Built in Slop Tolerance variable
